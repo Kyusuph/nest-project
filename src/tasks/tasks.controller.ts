@@ -7,6 +7,8 @@ import {
   Patch,
   Post,
   Query,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 
 import { TasksService } from './tasks.service';
@@ -18,7 +20,7 @@ import { GetTaskSearchDto } from './dto/get-task-search.dto';
 export class TasksController {
   constructor(private tasksService: TasksService) {}
 
-  // Gets
+  // Get requests
   @Get()
   getTasks(@Query() taskSearchDto: GetTaskSearchDto): Task[] {
     if(Object.keys(taskSearchDto).length) {
@@ -32,16 +34,14 @@ export class TasksController {
     return this.tasksService.getTaskById(id);
   }
 
-  @Delete('/:id')
-  deleteTaskById(@Param('id') id: string): void {
-    this.tasksService.deleteTask(id);
-  }
-
+  // Post requests
   @Post()
+  @UsePipes(ValidationPipe)
   createTask(@Body() createTaskDto: CreateTaskDto): Task {
     return this.tasksService.createTask(createTaskDto);
   }
 
+  // Patch requests
   @Patch('/:id/:field')
   updateTask(
     @Param('id') id: string,
@@ -49,5 +49,11 @@ export class TasksController {
     @Body() value: {[field: string]: string},
   ): Task {
     return this.tasksService.updateTask(id, field, value);
+  }
+
+  // Delete requests
+  @Delete('/:id')
+  deleteTaskById(@Param('id') id: string): void {
+    this.tasksService.deleteTask(id);
   }
 }
