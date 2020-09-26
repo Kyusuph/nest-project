@@ -53,15 +53,16 @@ export class TasksService {
   updateTask(
     id: string,
     field: string,
-    value: { [field: string]: string },
+    status: TaskStatus,
   ): Task {
     const task = this.getTaskById(id);
-    task[field] = value[field];
+    task.status = status;
 
     return task;
   }
 
   deleteTask(id: string): void {
-    this.tasks = this.tasks.filter(task => task.id !== id);
+    const found = this.getTaskById(id);
+    this.tasks = this.tasks.filter(task => task.id !== found.id);
   }
 }

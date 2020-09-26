@@ -12,9 +12,10 @@ import {
 } from '@nestjs/common';
 
 import { TasksService } from './tasks.service';
-import { Task } from './task.model';
+import { Task, TaskStatus } from './task.model';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { GetTaskSearchDto } from './dto/get-task-search.dto';
+import { TaskStatusValidationPipe } from './pipes/task-status-validation.pipe';
 
 @Controller('tasks')
 export class TasksController {
@@ -46,9 +47,9 @@ export class TasksController {
   updateTask(
     @Param('id') id: string,
     @Param('field') field: string,
-    @Body() value: {[field: string]: string},
+    @Body('status', TaskStatusValidationPipe) status: TaskStatus,
   ): Task {
-    return this.tasksService.updateTask(id, field, value);
+    return this.tasksService.updateTask(id, field, status);
   }
 
   // Delete requests
