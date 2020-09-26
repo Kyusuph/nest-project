@@ -22,7 +22,7 @@ export class TasksController {
   @Get()
   getTasks(@Query() taskSearchDto: GetTaskSearchDto): Task[] {
     if(Object.keys(taskSearchDto).length) {
-      return this.tasksService.getTasksWithFilter(taskSearchDto);
+      return this.tasksService.getTasksWithFilters(taskSearchDto);
     }
     return this.tasksService.getAllTasks();
   }

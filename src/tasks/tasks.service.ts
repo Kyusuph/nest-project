@@ -13,7 +13,7 @@ export class TasksService {
     return this.tasks;
   }
 
-  getTasksWithFilter(taskSearchDto: GetTaskSearchDto): Task[] {
+  getTasksWithFilters(taskSearchDto: GetTaskSearchDto): Task[] {
     const { status, search } = taskSearchDto;
     let tasks = this.tasks;
     if (status) {
