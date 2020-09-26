@@ -19,6 +19,7 @@ export class TaskStatusValidationPipe implements PipeTransform {
   }
 
   private checkStatusValidation(value: any): boolean {
-      return this.allowedStatus.includes(value);
+      const statusIndex = this.allowedStatus.indexOf(value);
+      return statusIndex !== -1;
   }
 }
