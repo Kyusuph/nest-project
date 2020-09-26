@@ -11,7 +11,7 @@ export class TasksService {
     return this.tasks;
   }
 
-  addTask(title: string, desc: string): Task {
+  createTask(title: string, desc: string): Task {
       const task: Task = {
           id: uuidv4(),
           title: title,
