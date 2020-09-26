@@ -23,7 +23,7 @@ export class TasksController {
 
   // Get requests
   @Get()
-  getTasks(@Query() taskSearchDto: GetTaskSearchDto): Task[] {
+  getTasks(@Query(ValidationPipe) taskSearchDto: GetTaskSearchDto): Task[] {
     if(Object.keys(taskSearchDto).length) {
       return this.tasksService.getTasksWithFilters(taskSearchDto);
     }
