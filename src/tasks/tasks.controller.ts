@@ -45,14 +45,14 @@ export class TasksController {
   }
 
   // // Patch requests
-  // @Patch('/:id/:field')
-  // updateTask(
-  //   @Param('id') id: string,
-  //   @Param('field') field: string,
-  //   @Body('status', TaskStatusValidationPipe) status: TaskStatus,
-  // ): Task {
-  //   return this.tasksService.updateTask(id, field, status);
-  // }
+  @Patch('/:id/status')
+  async updateTask(
+    @Param('id', ParseIntPipe) id: number,
+    @Body('status', TaskStatusValidationPipe) status: TaskStatus,
+  ): Promise<Task> {
+    const task = await this.tasksService.updateTask(id, status);
+    return task;
+  }
 
   // // Delete requests
   @Delete('/:id')
