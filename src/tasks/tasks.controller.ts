@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Query,
@@ -32,7 +33,7 @@ export class TasksController {
   // }
 
   @Get('/:id')
-  getTaskById(@Param('id') id: number): Promise<Task> {
+  getTaskById(@Param('id', ParseIntPipe) id: number): Promise<Task> {
     return this.tasksService.getTaskById(id);
   }
 
@@ -55,7 +56,7 @@ export class TasksController {
 
   // // Delete requests
   @Delete('/:id')
-  async deleteTaskById(@Param('id') id: number): Promise<void> {
+  async deleteTaskById(@Param('id', ParseIntPipe) id: number): Promise<void> {
     await this.tasksService.deleteTask(id);
   }
 }
