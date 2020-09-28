@@ -41,26 +41,10 @@ export class TasksService {
     }
     return found;
   }
-  // getTaskById(id: string): Task {
-  //   const found = this.tasks.find(task => task.id === id);
-  //   if (!found) {
-  //     throw new NotFoundException(`Task with id ${id} not found!`);
-  //   }
-  //   return found;
-  // }
 
-  // createTask(createTaskDto: CreateTaskDto): Task {
-  //   const { title, description } = createTaskDto;
-  //   const task: Task = {
-  //     id: uuidv4(),
-  //     title,
-  //     description,
-  //     status: TaskStatus.OPEN,
-  //   };
-  //   this.tasks.push(task);
-
-  //   return task;
-  // }
+  async createTask(createTaskDto: CreateTaskDto): Promise<Task>{
+    return this.taskRepository.createTask(createTaskDto);
+  }
 
   // updateTask(
   //   id: string,
