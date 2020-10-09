@@ -20,7 +20,7 @@ export class AuthService {
 
   async signIn(
     authCredentialsDto: AuthCredentialsDto,
-  ): Promise<{ accessToken }> {
+  ): Promise<{ accessToken: string; }> {
     const username = await this.userRepository.signIn(authCredentialsDto);
 
     if (!username) {
