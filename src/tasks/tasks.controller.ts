@@ -30,8 +30,9 @@ export class TasksController {
 
   // Get requests
   @Get()
-  async getTasks(@Query(ValidationPipe) taskSearchDto: GetTaskSearchDto): Promise<Task[]> {
-    return await this.tasksService.getTasks(taskSearchDto);
+  async getTasks(@Query(ValidationPipe) taskSearchDto: GetTaskSearchDto, 
+  @GetUser() user: User): Promise<Task[]> {
+    return await this.tasksService.getTasks(taskSearchDto, user);
   }
 
   @Get('/:id')
