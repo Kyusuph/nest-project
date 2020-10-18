@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Logger,
   Param,
   ParseIntPipe,
   Patch,
@@ -26,12 +27,14 @@ import { GetUser } from '../auth/get-user.decorator';
 @Controller('tasks')
 @UseGuards(AuthGuard())
 export class TasksController {
+  private logger = new Logger('TasksController');
   constructor(private tasksService: TasksService) {}
 
   // Get requests
   @Get()
   async getTasks(@Query(ValidationPipe) taskSearchDto: GetTaskSearchDto, 
   @GetUser() user: User): Promise<Task[]> {
+    this.logger.log(`Getting all task for user ${user.username} with filter ${JSON.stringify(taskSearchDto)}`);
     return await this.tasksService.getTasks(taskSearchDto, user);
   }
 
@@ -44,6 +47,7 @@ export class TasksController {
   @Post()
   @UsePipes(ValidationPipe)
   createTask(@Body() createTaskDto: CreateTaskDto, @GetUser() user: User,): Promise<Task> {
+    this.logger.log(`Creating a new task ${JSON.stringify(createTaskDto)}`);
     return this.tasksService.createTask(createTaskDto, user);
   }
 
